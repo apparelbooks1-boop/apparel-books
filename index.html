@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ApparelBooks — The Financial System for African Fashion Designers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0D1B2A;
+  --navy-mid: #152438;
+  --navy-light: #1E3351;
+  --gold: #C9A84C;
+  --gold-light: #E2C06A;
+  --gold-pale: #F5E9C8;
+  --cream: #FDF8F0;
+  --cream-mid: #F5EDD8;
+  --white: #FFFFFF;
+  --text-dark: #0D1B2A;
+  --text-mid: #3A4A5C;
+  --text-muted: #7A8999;
+  --success: #2D7A4F;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-head: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--navy);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 60px;
+  background: rgba(13, 27, 42, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  transition: padding 0.3s;
+}
+
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.nav-logo-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.nav-logo-sub {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(253, 248, 240, 0.7);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  background: var(--gold);
+  color: var(--navy) !important;
+  padding: 9px 22px;
+  border-radius: 3px;
+  font-weight: 600 !important;
+  transition: background 0.2s, transform 0.2s !important;
+}
+.nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); color: var(--navy) !important; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 60px 80px;
+  overflow: hidden;
+}
+
+.hero-bg-pattern {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(201, 168, 76, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(30, 51, 81, 0.8) 0%, transparent 60%);
+}
+
+.hero-geo {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 520px;
+  height: 520px;
+  opacity: 0.07;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 7vw, 88px);
+  font-weight: 700;
+  line-height: 1.0;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(253, 248, 240, 0.6);
+  margin-bottom: 32px;
+  line-height: 1.4;
+}
+
+.hero-body {
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(253, 248, 240, 0.75);
+  margin-bottom: 48px;
+  max-width: 540px;
+}
+
+.hero-body strong {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy);
+  padding: 16px 36px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(201, 168, 76, 0.25);
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201, 168, 76, 0.35); }
+
+.btn-ghost {
+  display: inline-block;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  color: var(--gold);
+  padding: 15px 36px;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover { border-color: var(--gold); background: rgba(201, 168, 76, 0.06); }
+
+.hero-stat-row {
+  display: flex;
+  gap: 48px;
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.hero-stat { display: flex; flex-direction: column; gap: 4px; }
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ── SECTION BASE ── */
+section {
+  position: relative;
+  z-index: 1;
+}
+
+.section-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 100px 60px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+
+.section-title em { font-style: italic; color: var(--gold); }
+
+.section-body {
+  font-size: 17px;
+  line-height: 1.8;
+  color: rgba(253, 248, 240, 0.65);
+  max-width: 600px;
+}
+
+/* ── PROBLEM BAND ── */
+.problem-band {
+  background: var(--navy-mid);
+  border-top: 1px solid rgba(201, 168, 76, 0.1);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.problem-left .section-body { max-width: 100%; margin-bottom: 32px; }
+
+.problem-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.problem-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  background: rgba(13, 27, 42, 0.6);
+  border: 1px solid rgba(201, 168, 76, 0.12);
+  border-radius: 6px;
+  transition: border-color 0.2s;
+}
+.problem-card:hover { border-color: rgba(201, 168, 76, 0.35); }
+
+.problem-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.1);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.problem-card-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 3px;
+}
+.problem-card-text span {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── COURSE SECTION ── */
+.course-section { background: var(--navy); }
+
+.course-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 48px;
+  max-width: 480px;
+}
+
+.course-tab {
+  flex: 1;
+  padding: 14px 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: background 0.2s, color 0.2s;
+}
+.course-tab.active {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 600;
+}
+.course-tab:hover:not(.active) { background: rgba(201, 168, 76, 0.08); color: var(--gold); }
+
+.course-panel { display: none; }
+.course-panel.active { display: block; }
+
+.course-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.course-info-label {
+  display: inline-block;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.course-info h3 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+
+.course-info p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(253, 248, 240, 0.65);
+  margin-bottom: 28px;
+}
+
+.course-meta {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.course-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.course-meta-item span { font-size: 16px; }
+
+.course-modules {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.module-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--navy-mid);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  border-radius: 6px;
+  transition: border-color 0.25s, transform 0.2s;
+  cursor: default;
+}
+.module-card:hover { border-color: rgba(201, 168, 76, 0.3); transform: translateX(4px); }
+
+.module-num {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: rgba(201, 168, 76, 0.35);
+  min-width: 32px;
+}
+
+.module-info strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 2px;
+}
+.module-info span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.module-lock {
+  margin-left: auto;
+  font-size: 14px;
+  opacity: 0.4;
+}
+.module-free .module-lock { opacity: 1; color: var(--success); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ── TEMPLATES SECTION ── */
+.templates-section {
+  background: var(--cream);
+  color: var(--text-dark);
+}
+
+.templates-section .section-title { color: var(--text-dark); }
+.templates-section .section-body { color: var(--text-mid); }
+
+.templates-section .section-label { color: var(--navy); }
+.templates-section .section-label::before { background: var(--navy); }
+
+.templates-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.template-toggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid rgba(13, 27, 42, 0.15);
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: fit-content;
+}
+
+.tmpl-tab {
+  padding: 10px 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: background 0.2s, color 0.2s;
+}
+.tmpl-tab.active { background: var(--navy); color: var(--gold); font-weight: 600; }
+.tmpl-tab:hover:not(.active) { background: rgba(13, 27, 42, 0.06); color: var(--text-dark); }
+
+/* Panels switching handling */
+.tmpl-panel { display: none; }
+.tmpl-panel.active { display: block; }
+
+/* Bundle card */
+.bundle-card {
+  background: var(--navy);
+  border-radius: 12px;
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.bundle-card::before {
+  content: 'BEST VALUE';
+  position: absolute;
+  top: 24px; right: -28px;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 5px 40px;
+  transform: rotate(45deg);
+}
+
+.bundle-left h3 {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+
+.bundle-left p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(253, 248, 240, 0.65);
+  margin-bottom: 28px;
+}
+
+.bundle-includes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.bundle-includes li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: rgba(253, 248, 240, 0.8);
+}
+.bundle-includes li::before {
+  content: '✦';
+  color: var(--gold);
+  font-size: 10px;
+}
+
+.bundle-price {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.bundle-price .amount {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.bundle-price .currency {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--gold);
+  align-self: flex-start;
+  padding-top: 8px;
+}
+
+.bundle-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.bundle-preview-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 8px;
+  padding: 20px 18px;
+  transition: border-color 0.2s;
+}
+.bundle-preview-card:hover { border-color: rgba(201, 168, 76, 0.4); }
+
+.bundle-preview-card .icon { font-size: 24px; margin-bottom: 10px; }
+.bundle-preview-card strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.bundle-preview-card span { font-size: 12px; color: var(--text-muted); }
+
+/* Individual cards layout */
+.individual-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.template-card {
+  background: var(--white);
+  border: 1px solid rgba(13, 27, 42, 0.1);
+  border-radius: 8px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.template-card:hover { border-color: rgba(13, 27, 42, 0.3); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(13, 27, 42, 0.1); }
+
+.template-card .t-icon { font-size: 28px; margin-bottom: 14px; }
+.template-card h4 { font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; }
+.template-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; flex: 1; margin-bottom: 20px; }
+.template-card .t-price {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+.btn-buy {
+  display: block;
+  text-align: center;
+  background: var(--navy);
+  color: var(--gold);
+  padding: 11px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  transition: background 0.2s;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.btn-buy:hover { background: var(--navy-light); }
+
+/* ── CUSTOMIZER SECTION ── */
+.customizer-section { background: var(--navy-mid); }
+
+.customizer-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.customizer-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.customizer-card {
+  padding: 24px 28px;
+  background: rgba(13, 27, 42, 0.5);
+  border: 1px solid rgba(201, 168, 76, 0.12);
+  border-radius: 8px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: border-color 0.2s;
+}
+.customizer-card:hover { border-color: rgba(201, 168, 76, 0.3); }
+
+.customizer-step {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  color: rgba(201, 168, 76, 0.25);
+  line-height: 1;
+  min-width: 40px;
+}
+
+.customizer-card-text strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 5px;
+}
+.customizer-card-text p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.eligibility-box {
+  margin-top: 8px;
+  padding: 20px 24px;
+  background: rgba(201, 168, 76, 0.06);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 6px;
+}
+
+.eligibility-box p {
+  font-size: 13px;
+  color: rgba(253, 248, 240, 0.7);
+  line-height: 1.6;
+}
+
+.eligibility-box strong { color: var(--gold); }
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  background: var(--navy);
+  border-top: 1px solid rgba(201, 168, 76, 0.1);
+  padding: 60px;
+}
+
+.trust-grid {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+.trust-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.trust-icon { font-size: 28px; }
+.trust-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.trust-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* ── FINAL CTA ── */
+.final-cta {
+  background: var(--gold);
+  padding: 100px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(13, 24, 42, 0.04) 20px,
+    rgba(13, 24, 42, 0.04) 21px
+  );
+}
+
+.final-cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+
+.final-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.final-cta p {
+  font-size: 18px;
+  color: rgba(13, 27, 42, 0.7);
+  margin-bottom: 40px;
+  line-height: 1.65;
+}
+
+.btn-dark {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--gold);
+  padding: 18px 44px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(13, 27, 42, 0.25);
+}
+.btn-dark:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(13, 27, 42, 0.35); }
+
+/* ── FOOTER ── */
+footer {
+  background: #080F18;
+  padding: 60px;
+  border-top: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.footer-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.footer-sub {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+footer p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── RESPONSIVE MEDIA QUERIES ── */
+@media (max-width: 992px) {
+  nav { padding: 20px 30px; }
+  .nav-links { gap: 20px; }
+  .hero { padding: 120px 30px 60px; }
+  .section-inner { padding: 80px 30px; }
+  .problem-grid, .course-grid, .bundle-card, .customizer-grid { grid-template-columns: 1fr; gap: 40px; }
+  .individual-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; } /* Simplified for mobile navigation */
+  .individual-grid { grid-template-columns: 1fr; }
+  .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+}
+
+/* ── FADE-IN ANIMATION ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+}
+
+.hero-eyebrow { animation-delay: 0.1s; }
+.hero-title   { animation-delay: 0.25s; }
+.hero-subtitle{ animation-delay: 0.35s; }
+.hero-body    { animation-delay: 0.45s; }
+.hero-actions { animation-delay: 0.55s; }
+.hero-stat-row{ animation-delay: 0.65s; }
+
+.ornament {
+  text-align: center;
+  padding: 40px 0 0;
+  color: rgba(201, 168, 76, 0.3);
+  font-size: 20px;
+  letter-spacing: 12px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-name">ApparelBooks</div>
+    <div class="nav-logo-sub">by PTFD</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#courses">Free Courses</a></li>
+    <li><a href="#templates">Templates</a></li>
+    <li><a href="#customizer">Earn With Us</a></li>
+    <li><a href="#courses" class="nav-cta">Start Free</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <svg class="hero-geo" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="200,20 380,110 380,290 200,380 20,290 20,110" stroke="#C9A84C" stroke-width="1" fill="none"/>
+    <polygon points="200,60 340,130 340,270 200,340 60,270 60,130" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+    <polygon points="200,100 300,150 300,250 200,300 100,250 100,150" stroke="#C9A84C" stroke-width="0.3" fill="none"/>
+    <line x1="200" y1="20" x2="200" y2="380" stroke="#C9A84C" stroke-width="0.3"/>
+    <line x1="20" y1="200" x2="380" y2="200" stroke="#C9A84C" stroke-width="0.3"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-up">The Solution You Have Been Looking For</div>
+    <h1 class="hero-title fade-up">Run Your Fashion<br><em>Business Like</em><br>a Business.</h1>
+    <p class="hero-subtitle fade-up">Built for African fashion designers. Finally.</p>
+    <p class="hero-body fade-up">
+      You are talented. You are consistent. You show up for your clients every single day.
+      But if your prices are guesses, your orders live in WhatsApp, and you cannot tell anyone
+      what your profit is — <strong>your business does not have a money problem. It has a systems problem.</strong>
+      <br><br>ApparelBooks gives you the system.
+    </p>
+    <div class="hero-actions fade-up">
+      <a href="#courses" class="btn-primary">Start the Free Course</a>
+      <a href="#templates" class="btn-ghost">View Templates</a>
+    </div>
+    <div class="hero-stat-row fade-up">
+      <div class="hero-stat">
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">Ready-to-use tools</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Free</div>
+        <div class="hero-stat-label">Full course access</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">1</div>
+        <div class="hero-stat-label">System. All of it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-band" id="problem">
+  <div class="section-inner">
+    <div class="problem-grid">
+      <div class="problem-left">
+        <div class="section-label">Sound Familiar?</div>
+        <h2 class="section-title">You Are Running a Business<br>From <em>Memory.</em></h2>
+        <p class="section-body">
+          Across Africa, thousands of talented fashion designers are leaving money on the table — not because they lack skill, but because no one ever gave them the financial tools to match their talent. Until now.
+        </p>
+        <a href="#courses" class="btn-primary" style="margin-top: 8px;">Get The System</a>
+      </div>
+      <div class="problem-cards">
+        <div class="problem-card">
+          <div class="problem-icon">💸</div>
+          <div class="problem-card-text">
+            <strong>Pricing is a guess</strong>
+            <span>You calculate a price in your head and hope it covers everything — it usually does not.</span>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">📱</div>
+          <div class="problem-card-text">
+            <strong>Orders live in WhatsApp</strong>
+            <span>Client names, deadlines, and deposits are scattered across chats. Mistakes happen.</span>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">❓</div>
+          <div class="problem-card-text">
+            <strong>Profit is unknown</strong>
+            <span>At the end of the month, you cannot say whether you made money or broke even.</span>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">📋</div>
+          <div class="problem-card-text">
+            <strong>No client records</strong>
+            <span>Measurements, order history, and payment records disappear when phones are changed.</span>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">🧾</div>
+          <div class="problem-card-text">
+            <strong>Taxes are ignored</strong>
+            <span>Most designers have never thought about tax obligations — until there is a problem.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="course-section" id="courses">
+  <div class="section-inner">
+    <div class="section-label">Free Education</div>
+    <h2 class="section-title">Learn First.<br><em>Everything is Free.</em></h2>
+    <p class="section-body" style="margin-bottom: 48px;">
+      Before you buy anything, learn. ApparelBooks offers two levels of free education — a quick intro to get you started in one hour, and a complete five-module course to transform how you run your business.
+    </p>
+
+    <div class="course-tabs">
+      <button class="course-tab active" onclick="switchCourse('mini')">1-Hour Starter</button>
+      <button class="course-tab" onclick="switchCourse('full')">Full Course (5 Modules)</button>
+    </div>
+
+    <!-- MINI COURSE -->
+    <div class="course-panel active" id="panel-mini">
+      <div class="course-grid">
+        <div class="course-info">
+          <div class="course-info-label">Free · 1 Hour · Instant Access</div>
+          <h3>The ApparelBooks<br>Starter Course</h3>
+          <p>Not ready for the full program yet? Start here. In one focused hour, you will understand why your current system is costing you money — and what you can do about it today.</p>
+          <div class="course-meta">
+            <div class="course-meta-item"><span>⏱</span> 1 Hour Total</div>
+            <div class="course-meta-item"><span>📹</span> 3 Lessons</div>
+            <div class="course-meta-item"><span>✅</span> Free Forever</div>
+          </div>
+          <a href="#" class="btn-primary">Start Now — It's Free</a>
+        </div>
+        <div class="course-modules">
+          <div class="module-card module-free">
+            <div class="module-num">01</div>
+            <div class="module-info">
+              <strong>Why Your Business Is Bleeding Money</strong>
+              <span>The hidden cost of running on memory · 20 mins</span>
+            </div>
+            <div class="module-lock">FREE</div>
+          </div>
+          <div class="module-card module-free">
+            <div class="module-num">02</div>
+            <div class="module-info">
+              <strong>How to Price Any Garment Correctly</strong>
+              <span>The exact formula every designer needs · 25 mins</span>
+            </div>
+            <div class="module-lock">FREE</div>
+          </div>
+          <div class="module-card module-free">
+            <div class="module-num">03</div>
+            <div class="module-info">
+              <strong>Your First Financial System in 15 Minutes</strong>
+              <span>Set up & never go back to guessing · 15 mins</span>
+            </div>
+            <div class="module-lock">FREE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL COURSE -->
+    <div class="course-panel" id="panel-full">
+      <div class="course-grid">
+        <div class="course-info">
+          <div class="course-info-label">Free · 5 Modules · Self-Paced</div>
+          <h3>The Full ApparelBooks<br>Business Course</h3>
+          <p>The complete education. Five deep modules that take you from no system at all to running a financially healthy, professionally organised fashion business. Permanently free — no catch.</p>
+          <div class="course-meta">
+            <div class="course-meta-item"><span>📚</span> 5 Modules</div>
+            <div class="course-meta-item"><span>🎯</span> Self-Paced</div>
+            <div class="course-meta-item"><span>✅</span> Free Forever</div>
+          </div>
+          <a href="#" class="btn-primary">Enrol Now — Free</a>
+        </div>
+        <div class="course-modules">
+          <div class="module-card module-free">
+            <div class="module-num">01</div>
+            <div class="module-info">
+              <strong>Fashion Finance Foundations</strong>
+              <span>Understanding money in your creative business</span>
+            </div>
+            <div class="module-lock">FREE</div>
+          </div>
+          <div class="module-card module-free">
+            <div class="module-num">02</div>
+            <div class="module-info">
+              <strong>Pricing Mastery</strong>
+              <span>Cost, value, and how to charge what you're worth</span>
+            </div>
+            <div class="module-lock">FREE</div>
+          </div>
+          <div class="module-card module-free">
+            <div class="module-num">03</div>
+            <div class="module-info">
+              <strong>Client & Order Management</strong>
+              <span>Tracking every job, deadline, and payment professionally</span>
+            </div>
+            <div class="module-lock">FREE</div>
+          </div>
+          <div class="module-card module-free">
+            <div class="module-num">04</div>
+            <div class="module-info">
+              <strong>Cash Flow & Budgeting</strong>
+              <span>Knowing where every naira goes and why it matters</span>
+            </div>
+            <div class="module-lock">FREE</div>
+          </div>
+          <div class="module-card module-free">
+            <div class="module-num">05</div>
+            <div class="module-info">
+              <strong>Tax Awareness for Fashion Designers</strong>
+              <span>What you need to know about running a legal business</span>
+            </div>
+            <div class="module-lock">FREE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section class="templates-section" id="templates">
+  <div class="section-inner">
+    <div class="templates-intro">
+      <div>
+        <div class="section-label">The Tools</div>
+        <h2 class="section-title">Your Complete<br><em style="color: var(--navy);">Business Toolkit.</em></h2>
+        <p class="section-body">Professional Google Sheets templates built specifically for African custom fashion designers. Every formula, every category — designed for your reality.</p>
+      </div>
+      <div class="template-toggle">
+        <button class="tmpl-tab active" onclick="switchTemplate('bundle')">Full Bundle</button>
+        <button class="tmpl-tab" onclick="switchTemplate('individual')">Individual Templates</button>
+      </div>
+    </div>
+
+    <!-- BUNDLE PANEL -->
+    <div class="tmpl-panel active" id="tmpl-bundle">
+      <div class="bundle-card">
+        <div class="bundle-left">
+          <h3>The Complete<br>ApparelBooks Bundle</h3>
+          <p>All six templates in one package. Set up your entire financial system in a single afternoon. The best investment you will make in your fashion business this year.</p>
+          <ul class="bundle-includes">
+            <li>Pricing Calculator</li>
+            <li>Professional Invoice Form</li>
+            <li>Order Tracker</li>
+            <li>Budget & Expenses Tracker</li>
+            <li>Client Database</li>
+            <li>Financial Health Dashboard</li>
+          </ul>
+          <div class="bundle-price">
+            <span class="currency">₦</span>
+            <span class="amount">25,000</span>
+          </div>
+          <button class="btn-primary" style="width: 100%; text-align: center;">Get Entire Bundle</button>
+        </div>
+        <div class="bundle-preview">
+          <div class="bundle-preview-card">
+            <div class="icon">📊</div>
+            <strong>Dashboard</strong>
+            <span>Visual cashflows</span>
+          </div>
+          <div class="bundle-preview-card">
+            <div class="icon">📐</div>
+            <strong>Pricing Tool</strong>
+            <span>Stop guessing costs</span>
+          </div>
+          <div class="bundle-preview-card">
+            <div class="icon">🧵</div>
+            <strong>Order Tracker</strong>
+            <span>Deadlines & status</span>
+          </div>
+          <div class="bundle-preview-card">
+            <div class="icon">👥</div>
+            <strong>Clients</strong>
+            <span>Measurement logs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INDIVIDUAL PANEL -->
+    <div class="tmpl-panel" id="tmpl-individual">
+      <div class="individual-grid">
+        <div class="template-card">
+          <div class="t-icon">📐</div>
+          <h4>Smart Pricing Calculator</h4>
+          <p>Input fabrics, tailoring fees, and overhead variables. Instantly know your markup margin.</p>
+          <div class="t-price">₦5,000</div>
+          <button class="btn-buy">Purchase</button>
+        </div>
+        <div class="template-card">
+          <div class="t-icon">🧵</div>
+          <h4>Order & Deadline Tracker</h4>
+          <p>Track delivery milestones, deposits paid, and pending custom clothing fittings easily.</p>
+          <div class="t-price">₦5,000</div>
+          <button class="btn-buy">Purchase</button>
+        </div>
+        <div class="template-card">
+          <div class="t-icon">🧾</div>
+          <h4>Automated Invoice Generator</h4>
+          <p>Generate striking, high-class designer invoices right inside Google Sheets to share with customers.</p>
+          <div class="t-price">₦5,000</div>
+          <button class="btn-buy">Purchase</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CUSTOMIZER / EARN WITH US -->
+<section class="customizer-section" id="customizer">
+  <div class="section-inner">
+    <div class="customizer-grid">
+      <div>
+        <div class="section-label">Earn With Us</div>
+        <h2 class="section-title">Join Our Affiliate<br><em>Program</em></h2>
+        <p class="section-body">
+          Do you know other designers who struggle with keeping receipts and pricing collections? Share ApparelBooks with them and make money when they get organized.
+        </p>
+        <div class="eligibility-box">
+          <p><strong>Payouts are instant:</strong> Earn a 30% commission directly into your bank account for every bundle sale generated via your special recommendation link.</p>
+        </div>
+      </div>
+      <div class="customizer-right">
+        <div class="customizer-card">
+          <div class="customizer-step">01</div>
+          <div class="customizer-card-text">
+            <strong>Register For Free</strong>
+            <p>Sign up as an ambassador in less than two minutes. No coding or hidden technical setups required.</p>
+          </div>
+        </div>
+        <div class="customizer-card">
+          <div class="customizer-step">02</div>
+          <div class="customizer-card-text">
+            <strong>Spread The Vision</strong>
+            <p>Drop your link inside designer group chats, share it on your Instagram story, or show it to your studio friends.</p>
+          </div>
+        </div>
+        <div class="customizer-card">
+          <div class="customizer-step">03</div>
+          <div class="customizer-card-text">
+            <strong>Collect Your Share</strong>
+            <p>When any creative updates their process using your link, you get paid right away.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<section class="trust-bar">
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="trust-icon">🌍</div>
+      <div class="trust-label">Region</div>
+      <div class="trust-value">Pan-African</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💼</div>
+      <div class="trust-label">Format</div>
+      <div class="trust-value">Google Sheets</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔒</div>
+      <div class="trust-label">Security</div>
+      <div class="trust-value">100% Secure</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">✨</div>
+      <div class="trust-label">Access</div>
+      <div class="trust-value">Lifetime</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <h2>Ready to build a structural legacy?</h2>
+    <p>Take your creative business from WhatsApp clutter to an elegant financial ecosystem. Start learning completely for free.</p>
+    <a href="#courses" class="btn-dark">Claim Your Free Education</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">ApparelBooks</div>
+      <div class="footer-sub">by PTFD</div>
+    </div>
+    <p>&copy; 2026 ApparelBooks. Dedicated to African Creativity.</p>
+  </div>
+</footer>
+
+<!-- TAB INTERACTIVITY JAVASCRIPT -->
+<script>
+function switchCourse(type) {
+  // Hide all panels
+  document.getElementById('panel-mini').classList.remove('active');
+  document.getElementById('panel-full').classList.remove('active');
+  
+  // Remove active class from buttons
+  const tabs = document.querySelectorAll('.course-tab');
+  tabs.forEach(tab => tab.classList.remove('active'));
+  
+  // Activate selected panel and button
+  if(type === 'mini') {
+    document.getElementById('panel-mini').classList.add('active');
+    event.currentTarget.classList.add('active');
+  } else {
+    document.getElementById('panel-full').classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+}
+
+function switchTemplate(type) {
+  // Hide all panels
+  document.getElementById('tmpl-bundle').classList.remove('active');
+  document.getElementById('tmpl-individual').classList.remove('active');
+  
+  // Remove active class from buttons
+  const tabs = document.querySelectorAll('.tmpl-tab');
+  tabs.forEach(tab => tab.classList.remove('active'));
+  
+  // Activate selected panel and button
+  if(type === 'bundle') {
+    document.getElementById('tmpl-bundle').classList.add('active');
+    event.currentTarget.classList.add('active');
+  } else {
+    document.getElementById('tmpl-individual').classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+}
+</script>
+
+</body>
+</html>
